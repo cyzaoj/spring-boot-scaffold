@@ -1,0 +1,38 @@
+#server settings
+server:
+    port : 8280
+    address : 127.0.0.1
+    sessionTimeout : 30
+    #contextPath : /
+    #Tomcat specifics
+    tomcat:
+        accessLogEnabled : false
+        protocolHeader : x-forwarded-proto
+        remoteIpHeader : x-forwarded-for
+        basedir:
+        backgroundProcessorDelay : 30 # secs
+logging:
+    config : classpath:logback.xml
+    level :
+      org.springframework : ERROR
+      com.alibaba : ERROR
+      com.tuicr : DEBUG
+
+
+spring :
+    profiles :
+        active: SNAPSHOT
+    jpa :
+        database : MYSQL
+        show-sql : true
+        generate-ddl : true
+        hibernate :
+            ddl-auto : update
+            naming-strategy : org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate :
+                dialect : org.hibernate.dialect.MySQL5Dialect
+    freemarker :
+                suffix : .ftl
+                request-context-attribute : request
+                expose-request-attributes : true
