@@ -58,9 +58,6 @@ public class CaptchaAuthenticationProcessingFilter extends UsernamePasswordAuthe
                 throw new BadCredentialsException("Captcha is Invalid !");
             }
         }
-
-
         return super.attemptAuthentication(request, response);
-
     }
 }
