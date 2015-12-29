@@ -55,21 +55,5 @@ public class CommonConfiguration {
         return defaultKaptcha;
     }
 
-
-    /**
-     * AbstractApplicationContext.initMessageSource
-     * 国际化bean必须定义成MESSAGE_SOURCE_BEAN_NAME
-     *
-     * @return
-     */
-    @Bean
-    public ResourceBundleMessageSource messageSource() {
-        ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-        resourceBundleMessageSource.setBasenames("classpath:/i18n/message");
-        resourceBundleMessageSource.setUseCodeAsDefaultMessage(true);
-        resourceBundleMessageSource.setDefaultEncoding("UTF-8");
-        return resourceBundleMessageSource;
-    }
-
 }
 

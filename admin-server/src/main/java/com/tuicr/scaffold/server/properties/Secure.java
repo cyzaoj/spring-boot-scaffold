@@ -18,7 +18,7 @@ public class Secure {
     /**
      * 权限分组名称
      */
-    private String role;
+    private String adminRole;
 
     /**
      * 登录页面地址

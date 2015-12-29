@@ -4,16 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
-import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
-import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.Locale;
@@ -49,7 +45,7 @@ import java.util.Locale;
 @Slf4j
 @EnableAspectJAutoProxy
 @EnableScheduling
-public class Bootstrap extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {
+public class Bootstrap extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
@@ -77,11 +73,4 @@ public class Bootstrap extends SpringBootServletInitializer implements EmbeddedS
         }
     }
 
-    @Override
-    public void customize(ConfigurableEmbeddedServletContainer container) {
-        container.addErrorPages(
-                new ErrorPage(HttpStatus.BAD_REQUEST, "/error/notfound"),
-                new ErrorPage(HttpStatus.NOT_FOUND, "/error/notfound")
-        );
-    }
 }

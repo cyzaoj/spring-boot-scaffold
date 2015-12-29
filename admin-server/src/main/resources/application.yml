@@ -1,6 +1,6 @@
 #server settings
 server:
-    port : 8280
+    port : 8181
     address : 127.0.0.1
     sessionTimeout : 30
     #contextPath : /
@@ -15,13 +15,11 @@ logging:
     config : classpath:logback.xml
     level :
       org.springframework : ERROR
-      com.alibaba : ERROR
       com.tuicr : DEBUG
-
 
 spring :
     profiles :
-        active: SNAPSHOT
+        active: RELEASE
     jpa :
         database : MYSQL
         show-sql : true
@@ -33,6 +31,8 @@ spring :
             hibernate :
                 dialect : org.hibernate.dialect.MySQL5Dialect
     freemarker :
-                suffix : .ftl
-                request-context-attribute : request
-                expose-request-attributes : true
+            suffix : .ftl
+            request-context-attribute : request
+            expose-request-attributes : true
+    jackson:
+            date-format : yyyyMMddHHmmss
