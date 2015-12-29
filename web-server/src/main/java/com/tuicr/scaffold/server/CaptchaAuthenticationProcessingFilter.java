@@ -1,5 +1,6 @@
 package com.tuicr.scaffold.server;
 
+import com.google.code.kaptcha.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -43,10 +44,23 @@ public class CaptchaAuthenticationProcessingFilter extends UsernamePasswordAuthe
                                                 HttpServletResponse response) throws AuthenticationException {
         String captcha = this.obtainCaptcha(request);
 
-        if (StringUtils.isBlank(captcha) && state) {
+        //不开启验证码不验证
+        if (!state) {
+            log.warn("Captcha isn't execute !!!", state);
+        } else if (StringUtils.isBlank(captcha)) {
             log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
-            throw new BadCredentialsException("Captcha is Invalid !");
+            throw new BadCredentialsException("Captcha is NULL !");
+        } else {
+            String sessionCaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
+            if (StringUtils.isNotBlank(sessionCaptcha)
+                    && sessionCaptcha.equalsIgnoreCase(captcha)) {
+                log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
+                throw new BadCredentialsException("Captcha is Invalid !");
+            }
         }
+
+
         return super.attemptAuthentication(request, response);
+
     }
 }
