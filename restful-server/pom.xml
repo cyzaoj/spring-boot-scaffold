@@ -9,15 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>web-server</artifactId>
-
-
+    <artifactId>restful-server</artifactId>
+    <description>
+        适用于restful服务搭建的脚手架
+    </description>
     <dependencies>
 
         <dependency>
             <groupId>com.tuicr</groupId>
             <artifactId>common</artifactId>
         </dependency>
+
         <!-- 阿里dubbo分布rpc服务-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -131,6 +133,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

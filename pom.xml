@@ -40,11 +40,17 @@
         <druid.version>1.0.16</druid.version>
     </properties>
     <modules>
+        <module>common</module>
         <module>web-server</module>
+        <module>restful-server</module>
     </modules>
     <dependencyManagement>
         <dependencies>
-           
+            <dependency>
+                <groupId>com.tuicr</groupId>
+                <artifactId>common</artifactId>
+                <version>1.0.0</version>
+            </dependency>
 
             <!-- dubbo -->
             <dependency>

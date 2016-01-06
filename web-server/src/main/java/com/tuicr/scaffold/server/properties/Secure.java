@@ -16,7 +16,7 @@ public class Secure {
 
 
     /**
-     * 权限分组名称
+     * 授权登录管理系统的分组
      */
     private String adminRole;
 
@@ -28,7 +28,7 @@ public class Secure {
     /**
      * 成功跳转地址
      */
-    private String loginSuccessUrl = "/";
+    private String loginSuccessUrl = "/dashboard";
 
     /**
      * 处理登录请求地址
@@ -45,4 +45,15 @@ public class Secure {
      * 登出地址
      */
     private String logoutUrl = "logout";
+
+
+    /**
+     * 鉴权表前缀
+     */
+    private String tablePrefix = "auth_oauth_";
+
+    /**
+     * 登录跳转地址
+     */
+    private String applicationUrl = "/";
 }
