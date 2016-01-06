@@ -5,7 +5,7 @@ springboot脚手架，集成jpa freemarker dubbo security为一体
 #运行方式
 
 1.执行com.tuicr.scaffold.Bootstrap的main即可运行服务端,相关容器配置项请修改application.yml <br>
-2. 跟人比较倾向于打成jar进行部署,运行方式java -jar target/xxxxxx-0.0.1-SNAPSHOT.jar <br>
+2. 个人比较倾向于打成jar进行部署,运行方式java -jar target/xxxxxx-0.0.1-SNAPSHOT.jar <br>
 远程调试运行方式java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar target/xxxxx-0.0.1-SNAPSHOT.jar
 
 #web-server
