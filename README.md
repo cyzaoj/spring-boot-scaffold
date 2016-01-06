@@ -22,3 +22,6 @@ DubboAutoConfiguration用注解的方式配置dubbo<br>
 
 api服务端脚手架
 拦截/api/**请求,通过header验证请求的合法性,(类似JWT)
+
+
+客户端实现秘钥生成可以参考DigestAuthUtils.generateDigest去完成实现
