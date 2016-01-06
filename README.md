@@ -8,6 +8,9 @@ springboot脚手架，集成jpa freemarker dubbo security为一体
 2. 个人比较倾向于打成jar进行部署,运行方式java -jar target/xxxxxx-0.0.1-SNAPSHOT.jar <br>
 远程调试运行方式java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n -jar target/xxxxx-0.0.1-SNAPSHOT.jar
 
+
+
+
 #web-server
 适用于web项目,修改了UsernamePasswordAuthenticationFilter加入了验证码的机制<br>
 ApplicationStartUp项目启动完成调用<br>
@@ -21,7 +24,15 @@ DubboAutoConfiguration用注解的方式配置dubbo<br>
 #restful-server
 
 api服务端脚手架
-拦截/api/**请求,通过header验证请求的合法性,(类似JWT)
+拦截/api/**请求,通过header验证请求的合法性,(类似JWT)<br>
 
 
-客户端实现秘钥生成可以参考DigestAuthUtils.generateDigest去完成实现
+客户端实现秘钥生成可以参考DigestAuthUtils.generateDigest去完成实现<br>
+
+
+咋不图别的,就是想让我们的api更安全<br>
+
+
+
+
+欢迎各位大神来吐槽.
