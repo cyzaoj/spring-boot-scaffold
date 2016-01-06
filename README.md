@@ -18,3 +18,7 @@ DubboAutoConfiguration用注解的方式配置dubbo<br>
 项目配置文件加载统一配置在Bootstrap类中,暂时只放置了dbconfig.properties / platform.properties / logback.properties
 
 
+#restful-server
+
+api服务端脚手架
+拦截/api/**请求,通过header验证请求的合法性,(类似JWT)
