@@ -15,6 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.www.DigestAuthenticationFilter;
 
 import java.util.Properties;
 
@@ -43,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
-     * 内存文件
+     * 用户保存在系统缓存中,根据项目需要自行实现UserDetailsService接口
+     *
      * @return
      */
     public UserDetailsService userDetailsService() {
@@ -56,20 +60,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
-
-
         auth.userDetailsService(userDetailsService());
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.
-                authorizeRequests().
-                anyRequest().authenticated().and().
-                httpBasic().and().
-                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().
-                csrf().disable();
+        http
+            .addFilterAfter(digestAuthenticationFilter(),BasicAuthenticationFilter.class)
+            .authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+                .httpBasic()
+            .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .csrf().disable();
     }
 
 
+    public DigestAuthenticationFilter digestAuthenticationFilter() {
+        DigestAuthenticationFilter digestAuthenticationFilter = new DigestAuthenticationFilter();
+        digestAuthenticationFilter.setUserDetailsService(userDetailsService());
+        digestAuthenticationFilter.setAuthenticationEntryPoint(digestAuthenticationEntryPoint());
+        return digestAuthenticationFilter;
+    }
+
+    public DigestAuthenticationEntryPoint digestAuthenticationEntryPoint() {
+        DigestAuthenticationEntryPoint digestAuthenticationEntryPoint = new DigestAuthenticationEntryPoint();
+        digestAuthenticationEntryPoint.setKey("acegi");
+        digestAuthenticationEntryPoint.setRealmName("Contacts Realm via Digest Authentication");
+        return digestAuthenticationEntryPoint;
+    }
 }
