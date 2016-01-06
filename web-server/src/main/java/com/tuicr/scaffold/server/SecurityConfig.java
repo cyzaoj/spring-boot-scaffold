@@ -2,11 +2,18 @@ package com.tuicr.scaffold.server;
 
 
 import com.tuicr.scaffold.server.properties.Secure;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.AuthenticatedVoter;
+import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,16 +21,23 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ * spring security安全认证集成
  * @author ylxia
  * @version 1.0
  * @package com.tuicr.weibo.server.config
  * @date 15/12/17
  */
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @EnableConfigurationProperties({
@@ -103,5 +117,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin")
                 .password("admin!#123")
                 .roles(secure.getAdminRole());
+    }
+
+
+    /*
+    *
+    * 这里可以增加自定义的投票器
+    */
+    @SuppressWarnings("rawtypes")
+    @Bean(name = "accessDecisionManager")
+    public AccessDecisionManager accessDecisionManager() {
+        log.info("AccessDecisionManager");
+        List<AccessDecisionVoter<?>> decisionVoters = new ArrayList<>();
+        decisionVoters.add(new RoleVoter());
+        decisionVoters.add(new AuthenticatedVoter());
+        decisionVoters.add(webExpressionVoter());// 启用表达式投票器
+        AffirmativeBased accessDecisionManager = new AffirmativeBased(decisionVoters);
+        return accessDecisionManager;
+    }
+
+    /*
+     * 表达式控制器
+     */
+    @Bean(name = "expressionHandler")
+    public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler() {
+        log.info("DefaultWebSecurityExpressionHandler");
+        DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
+        return webSecurityExpressionHandler;
+    }
+
+    /*
+     * 表达式投票器
+     */
+    @Bean(name = "expressionVoter")
+    public WebExpressionVoter webExpressionVoter() {
+        log.info("WebExpressionVoter");
+        WebExpressionVoter webExpressionVoter = new WebExpressionVoter();
+        webExpressionVoter.setExpressionHandler(webSecurityExpressionHandler());
+        return webExpressionVoter;
     }
 }
