@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("helloworld")
-public class HelloWorldController {
+@RequestMapping("/api/test")
+public class TestController {
 
     /**
      * @return

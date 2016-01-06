@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -63,12 +64,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService());
     }
 
+    /**
+     * 验证/api/**请求,
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
             .addFilterAfter(digestAuthenticationFilter(),BasicAuthenticationFilter.class)
-            .authorizeRequests()
-            .anyRequest().authenticated()
+            .authorizeRequests().antMatchers(HttpMethod.POST,"/api/**").authenticated()
             .and()
                 .httpBasic()
             .and()
@@ -82,6 +87,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         DigestAuthenticationFilter digestAuthenticationFilter = new DigestAuthenticationFilter();
         digestAuthenticationFilter.setUserDetailsService(userDetailsService());
         digestAuthenticationFilter.setAuthenticationEntryPoint(digestAuthenticationEntryPoint());
+
+        //增加缓存获取的用户信息,减轻服务器负荷/提升访问速度
+        //digestAuthenticationFilter.setUserCache();
         return digestAuthenticationFilter;
     }
 
