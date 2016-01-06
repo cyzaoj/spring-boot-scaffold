@@ -104,15 +104,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("admin!#123")
                 .roles(secure.getAdminRole());
     }
-
-
-
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws  Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("admin!#123")
-                .roles(secure.getAdminRole());
-    }
 }
