@@ -5,7 +5,7 @@
 
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
     <property name="LOG_HOME" value="${user.dir}/logs/"/>
-    <property name="APP_NAME" value="web-server"/>
+    <property name="APP_NAME" value="restful-server"/>
 
 
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">

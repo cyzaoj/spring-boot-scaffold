@@ -24,18 +24,6 @@ import java.util.Locale;
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
 
-    /**
-     * 不需要拦截处理的URI
-     */
-    public static final String[] IGNORE_URIS = {
-            "/error/**",
-            "/kaptcha/**",
-            "/auth/**",
-            "/login",
-            "/signin/**",
-            "/signup/**"
-    };
-
 
     /**
      * 过滤资源
@@ -49,11 +37,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
             "/**/*.js"
     };
 
-
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver resolver = new SessionLocaleResolver();
-        resolver.setDefaultLocale(Locale.US);
+        resolver.setDefaultLocale(Locale.SIMPLIFIED_CHINESE);
         return resolver;
     }
 
@@ -96,14 +83,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     }
 
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        super.addResourceHandlers(registry);
-       /* registry
-                .addResourceHandler(IGNORE_RESOURCES)
-                .addResourceLocations("/bower_components*//**")
-         .setCachePeriod(31556926);*/
-    }
 
 
 }

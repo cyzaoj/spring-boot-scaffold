@@ -89,6 +89,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         digestAuthenticationFilter.setAuthenticationEntryPoint(digestAuthenticationEntryPoint());
 
         //增加缓存获取的用户信息,减轻服务器负荷/提升访问速度
+        //每次验证都会去loadUserByUsername一次,一般情况该操作都是代价很大,所以建议实现缓存
+        //降低调用次数
         //digestAuthenticationFilter.setUserCache();
         return digestAuthenticationFilter;
     }
