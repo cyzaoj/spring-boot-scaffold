@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author ylxia
  * @version 1.0
- * @package com.tuicr.authcenter.server
+ * @package com.tuicr.scaffold.server
  * @date 15/12/29
  */
 @Component

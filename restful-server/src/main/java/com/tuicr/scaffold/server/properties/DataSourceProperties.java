@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author ylxia
  * @version 1.0
- * @package com.iyerka.config
+ * @package com.tuicr.scaffold.config
  * @date 九月
  */
 @Data

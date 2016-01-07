@@ -1,5 +1,6 @@
 # spring-boot-scaffold
-springboot脚手架，集成jpa freemarker dubbo security为一体
+springboot脚手架，集成jpa freemarker dubbo security为一体,使用不到的可以将对应的maven依赖删除即可.
+
 
 
 #运行方式
@@ -18,7 +19,7 @@ CommonConfiguration配置spring最基本的配置<br>
 DataSourceConfiguration配置数据源<br>
 DubboAutoConfiguration用注解的方式配置dubbo<br>
 
-项目配置文件加载统一配置在Bootstrap类中,暂时只放置了dbconfig.properties / platform.properties / logback.properties
+项目配置文件加载统一配置在Bootstrap类中,暂时只放置了dbconfig.properties / platform.properties
 
 
 #restful-server
@@ -29,6 +30,8 @@ api服务端脚手架
 
 客户端实现秘钥生成可以参考DigestAuthUtils.generateDigest去完成实现<br>
 
+注:druid未完全配置完成<br>
+服务端经常涉及到性能问题,可以通过阿里巴巴的druid进行分析,为了演示这里没有对其uri进行拦截,访问地址:/druid/index.html
 
 咋不图别的,就是想让我们的api更安全<br>
 

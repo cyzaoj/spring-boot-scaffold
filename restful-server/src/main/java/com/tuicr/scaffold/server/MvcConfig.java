@@ -1,11 +1,16 @@
 package com.tuicr.scaffold.server;
 
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -19,10 +24,10 @@ import java.util.Locale;
  * @package com.iyerka.server.config
  * @date 九月
  */
+@Slf4j
 @Configuration
 //@EnableWebMvc
 public class MvcConfig extends WebMvcConfigurerAdapter {
-
 
 
     /**
@@ -81,8 +86,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         super.addViewControllers(registry);
         registry.addViewController("/").setViewName("index");
     }
-
-
 
 
 }
