@@ -47,10 +47,12 @@ public class CaptchaAuthenticationProcessingFilter extends UsernamePasswordAuthe
         //不开启验证码不验证
         if (!state) {
             log.warn("Captcha isn't execute !!!", state);
-        } else if (StringUtils.isBlank(captcha)) {
-            log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
-            throw new BadCredentialsException("Captcha is NULL !");
         } else {
+            if (StringUtils.isBlank(captcha)) {
+                log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
+                throw new BadCredentialsException("Captcha is NULL !");
+            }
+
             String sessionCaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
             if (StringUtils.isNotBlank(sessionCaptcha)
                     && sessionCaptcha.equalsIgnoreCase(captcha)) {
@@ -58,6 +60,8 @@ public class CaptchaAuthenticationProcessingFilter extends UsernamePasswordAuthe
                 throw new BadCredentialsException("Captcha is Invalid !");
             }
         }
+
+
         return super.attemptAuthentication(request, response);
     }
 }
