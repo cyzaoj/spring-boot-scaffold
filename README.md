@@ -1,6 +1,47 @@
 # spring-boot-scaffold
 springboot脚手架，集成jpa freemarker dubbo security为一体,使用不到的可以将对应的maven依赖删除即可.
 
+#目录结构
+
+
+|____pom.xml
+|____src
+| |____main
+| | |____java
+| | | |____com
+| | | | |____tuicr
+| | | | | |____scaffold
+| | | | | | |____ApplicationStartUp.java
+| | | | | | |____Bootstrap.java
+| | | | | | |____controller
+| | | | | | | |____api
+| | | | | | | | |____TestController.java
+| | | | | | | |____RestfulApiAdvice.java                //请求切面监听,initBinder  ,exceptionHandler都可以在这配置
+| | | | | | |____server
+| | | | | | | |____config                               // spring相关配置
+| | | | | | | | |____CommonConfiguration.java
+| | | | | | | | |____DataSourceConfiguration.java
+| | | | | | | | |____DubboAutoConfiguration.java
+| | | | | | | |____MvcConfig.java
+| | | | | | | |____properties                           //对应配置文件,boot自动装置相关配置到对应的bean
+| | | | | | | | |____DataSourceProperties.java
+| | | | | | | | |____DubboApplication.java
+| | | | | | | | |____DubboProtocol.java
+| | | | | | | | |____DubboProvider.java
+| | | | | | | | |____DubboRegistry.java
+| | | | | | | |____SecurityConfig.java                   //springsecurity相关配置
+| | | | | | | |____ServletContainerCustomizer.java        //配置错误跳转页面
+| | |____resources
+| | | |____application.yml                          //基础配置,(必须)
+| | | |____dbconfig.properties                      //数据源配置
+| | | |____dubbo.properties                         //dubbo配置
+| | | |____i18n                                     //国际化资源文件
+| | | | |____message_en_US.properties
+| | | | |____message_zh_CN.properties
+| | | |____logback.xml  
+| | | |____platform.properties                      //本工程相关配置,根据需求自由定制
+
+
 
 
 #运行方式
