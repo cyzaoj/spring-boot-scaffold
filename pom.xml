@@ -52,6 +52,13 @@
                 <version>1.0.0</version>
             </dependency>
 
+            <!--  求下载并编译https://github.com/cyzaoj/spring-boot-dubbo-starter -->
+            <dependency>
+                <groupId>boot-dubbo</groupId>
+                <artifactId>spring-boot-dubbo-starter</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
             <!-- dubbo -->
             <dependency>
                 <groupId>com.alibaba</groupId>

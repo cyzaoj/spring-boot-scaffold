@@ -7,6 +7,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
@@ -45,6 +46,7 @@ import java.util.Locale;
 @Slf4j
 @EnableAspectJAutoProxy
 @EnableScheduling
+@ComponentScan(basePackages = {"dubbo", "com.tuicr"})
 public class Bootstrap extends SpringBootServletInitializer {
 
     @Override
@@ -62,7 +64,7 @@ public class Bootstrap extends SpringBootServletInitializer {
         if (context instanceof EmbeddedWebApplicationContext) {
             int port = ((EmbeddedWebApplicationContext) context).getEmbeddedServletContainer().getPort();
             String contextPath = context.getApplicationName();
-            String url = String.format(Locale.US, "http://localhost:%d%s", port, contextPath);
+            String url = String.format(Locale.SIMPLIFIED_CHINESE, "http://localhost:%d%s", port, contextPath);
 
             //提示项目用到的相关配置文件
             log.info(" =========== ${user.dir}={} ===========  ", System.getProperty("user.dir"));

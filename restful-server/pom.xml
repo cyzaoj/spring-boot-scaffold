@@ -14,13 +14,16 @@
         适用于restful服务搭建的脚手架
     </description>
     <dependencies>
-
         <dependency>
             <groupId>com.tuicr</groupId>
             <artifactId>common</artifactId>
         </dependency>
 
         <!-- 阿里dubbo分布rpc服务-->
+        <dependency>
+            <groupId>boot-dubbo</groupId>
+            <artifactId>spring-boot-dubbo-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
