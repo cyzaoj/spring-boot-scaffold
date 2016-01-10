@@ -46,7 +46,8 @@ springboot脚手架，集成jpa freemarker dubbo security为一体,使用不到�
 
 
 
-如需要引入dubbo相关配置，请依赖https://github.com/cyzaoj/spring-boot-dubbo-starter工程，系统将自动载入dubbo.properties相关配置
+如需要引入dubbo相关配置，请依赖https://github.com/cyzaoj/spring-boot-dubbo-starter&nbsp;
+工程，系统将自动载入dubbo.properties相关配置
 
 
 #运行方式
