@@ -20,15 +20,10 @@ springboot脚手架，集成jpa freemarker dubbo security为一体,使用不到�
 | | | | | | |____server                                                                                                 <br>
 | | | | | | | |____config                               // spring相关配置                                                 <br>
 | | | | | | | | |____CommonConfiguration.java                                                                           <br>
-| | | | | | | | |____DataSourceConfiguration.java                                                                       <br>
-| | | | | | | | |____DubboAutoConfiguration.java                                                                        <br>
+| | | | | | | | |____DataSourceConfiguration.java                                                                         <br>
 | | | | | | | |____MvcConfig.java                                                                                       <br>
 | | | | | | | |____properties                           //对应配置文件,boot自动装置相关配置到对应的bean                           <br>
-| | | | | | | | |____DataSourceProperties.java                                                                              <br>
-| | | | | | | | |____DubboApplication.java                                                                                  <br>
-| | | | | | | | |____DubboProtocol.java                                                                                     <br>
-| | | | | | | | |____DubboProvider.java                                                                                     <br>
-| | | | | | | | |____DubboRegistry.java                                                                                     <br>
+| | | | | | | | |____DataSourceProperties.java                                                                                       <br>
 | | | | | | | |____SecurityConfig.java                   //springsecurity相关配置                                               <br>
 | | | | | | | |____ServletContainerCustomizer.java        //配置错误跳转页面                                                    <br>
 | | |____resources                                                                                                      <br>
