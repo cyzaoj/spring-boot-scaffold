@@ -35,4 +35,4 @@ spring :
             request-context-attribute : request
             expose-request-attributes : true
     jackson:
-            date-format : yyyyMMddHHmmss
+            date-format : yyyy-MM-dd'T'HH:mm:ssUTC
