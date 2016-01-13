@@ -32,7 +32,7 @@
         <httpmime.version>4.5.1</httpmime.version>
         <httpclient.cache.version>4.5.1</httpclient.cache.version>
         <dom4j.version>1.6.1</dom4j.version>
-        <kpatcha.version>2.3.2</kpatcha.version>
+        <kaptcha.version>2.3.2</kaptcha.version>
         <lombok.version>1.16.4</lombok.version>
         <fastjson.version>1.2.5</fastjson.version>
         <freemarker.version>2.3.23</freemarker.version>
