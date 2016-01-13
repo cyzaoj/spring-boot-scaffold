@@ -1,6 +1,10 @@
 # spring-boot-scaffold
 springboot脚手架，集成jpa freemarker dubbo security为一体,使用不到的可以将对应的maven依赖删除即可.
 
+
+#开发工具
+项目使用了lombok，so 用idea开发的小伙伴请安装lombok插件，不然会提示报错
+
 #目录结构
 |____src                                        <br>                                       
 | |____main                                     <br>
