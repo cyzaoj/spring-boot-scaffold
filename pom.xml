@@ -69,6 +69,13 @@
                 <version>1.0.0</version>
             </dependency>
 
+            <!-- 下载https://github.com/cyzaoj/spring-boot-dubbo-starter-->
+            <dependency>
+                <groupId>boot-dubbo</groupId>
+                <artifactId>spring-boot-dubbo-starter</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
             <dependency>
                 <groupId>me.chanjar</groupId>
                 <artifactId>weixin-java-mp</artifactId>
