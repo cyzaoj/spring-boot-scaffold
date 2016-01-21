@@ -16,7 +16,7 @@
 
         <dependency>
             <groupId>com.tuicr</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>compact-datamodel</artifactId>
         </dependency>
 
         <!-- 阿里dubbo分布rpc服务-->

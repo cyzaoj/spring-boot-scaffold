@@ -57,7 +57,7 @@
         <hibernate.api.version>1.1.0.Final</hibernate.api.version>
     </properties>
     <modules>
-        <module>common</module>
+        <module>compact-datamodel</module>
         <module>web-server</module>
         <module>restful-server</module>
     </modules>
@@ -65,7 +65,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.tuicr</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>compact-datamodel</artifactId>
                 <version>1.0.0</version>
             </dependency>
 

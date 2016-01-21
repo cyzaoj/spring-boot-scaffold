@@ -14,6 +14,8 @@ import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.access.vote.RoleVoter;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -71,8 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
-                        .usernameParameter("username")
-                        .passwordParameter("password")
+                        .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                        .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
                         .loginPage(secure.getLoginPage())
                         .loginProcessingUrl(secure.getLoginProcessingUrl())
                         .defaultSuccessUrl(secure.getLoginSuccessUrl())
@@ -118,6 +120,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .password("admin!#123")
                 .roles(secure.getAdminRole());
     }
+
+//
+//    @Autowired
+//    public void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+//        daoAuthenticationProvider.setUserDetailsService(authUserHandler());
+//        daoAuthenticationProvider.setSaltSource(user -> user.getUsername());
+//        daoAuthenticationProvider.setPasswordEncoder(new Md5PasswordEncoder());
+//        auth.authenticationProvider(daoAuthenticationProvider);
+//    }
 
 
     /*
