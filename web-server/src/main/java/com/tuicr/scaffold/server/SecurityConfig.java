@@ -28,6 +28,7 @@ import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.Filter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +51,13 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    public final static String EXPIRE_URI_PARAM = "?param.error=expired";
 
-    public final static  String CREDENTIALS_URI_PARAM = "?param.error=bad_credentials";
+    public SecurityConfig(){
+
+        //自定义loginfrom提交 请注意不要随便改为true,
+        // isCustomLoginPage在初始化的时候为false,进入默认formlogin导致configure中设置的相关错误跳转失效
+        super(false);
+    }
 
     @Autowired
     private Secure secure;
@@ -69,8 +74,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers(MvcConfig.IGNORE_URIS).permitAll()
+                    .antMatchers(MvcConfig.IGNORE_URIS)
+                .permitAll()
                     .anyRequest().authenticated()
+                .and()
+                    .addFilter(captchaFilter())
+                //  .addFilterBefore(captchaFilter(),UsernamePasswordAuthenticationFilter.class)
+                    .csrf()
                 .and()
                     .formLogin()
                         .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
@@ -78,27 +88,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .loginPage(secure.getLoginPage())
                         .loginProcessingUrl(secure.getLoginProcessingUrl())
                         .defaultSuccessUrl(secure.getLoginSuccessUrl())
-                        .failureUrl(secure.getLoginPage() + CREDENTIALS_URI_PARAM)
+                        .failureUrl(secure.getBadCredentialsUrl()).permitAll()
                 .and()
-                    .csrf()
-                .and()
-                    .addFilterBefore(captchaFilter(),UsernamePasswordAuthenticationFilter.class)
-                .logout()
-                    .logoutUrl(secure.getLogoutUrl())
-                    .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl(secure.getLoginPage())
+                    .logout()
+                        .logoutUrl(secure.getLogoutUrl())
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl(secure.getLoginPage())
                 .and()
                     .rememberMe()
                 .and()
-                    .exceptionHandling().accessDeniedPage("/error?param.error=denied")
+                    .exceptionHandling().accessDeniedPage(secure.getAccessDeniedUrl())
                 .and()
                     .sessionManagement()
                     .maximumSessions(1)
-                    .expiredUrl(secure.getLoginPage() + EXPIRE_URI_PARAM)
+                    .maxSessionsPreventsLogin(true)
+                    .expiredUrl(secure.getExpireUrl())
                 .and()
                     .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                    .invalidSessionUrl(secure.getLoginPage() + EXPIRE_URI_PARAM);
+                    .invalidSessionUrl(secure.getLoginPage());
     }
+
 
 
     /**
@@ -107,9 +116,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @return
      * @throws Exception
      */
-    public AbstractAuthenticationProcessingFilter captchaFilter() throws Exception {
+    public Filter captchaFilter() throws Exception {
         CaptchaAuthenticationProcessingFilter captchaAuthenticationProcessingFilter =  new CaptchaAuthenticationProcessingFilter(false);
-        captchaAuthenticationProcessingFilter.setAuthenticationManager(authenticationManagerBean());
         return captchaAuthenticationProcessingFilter;
     }
 
@@ -118,7 +126,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("admin")
                 .password("admin!#123")
-                .roles(secure.getAdminRole());
+                .roles("ADMIN");
     }
 
 //

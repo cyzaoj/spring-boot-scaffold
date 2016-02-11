@@ -30,18 +30,18 @@ import java.util.Locale;
         //默认配置
         @PropertySource("classpath:dbconfig.properties"),
         @PropertySource("classpath:dubbo.properties"),
-        @PropertySource("classpath:platform.properties"),
+        @PropertySource("classpath:secure.properties"),
 
 
         //tomcat目录下
         @PropertySource(value = "file:${CATALINA_BASE}/conf/dbconfig.properties", ignoreResourceNotFound = true),
         @PropertySource(value = "file:${CATALINA_BASE}/conf/dubbo.properties", ignoreResourceNotFound = true),
-        @PropertySource(value = "file:${CATALINA_BASE}/conf/platform.properties", ignoreResourceNotFound = true),
+        @PropertySource(value = "file:${CATALINA_BASE}/conf/secure.properties", ignoreResourceNotFound = true),
 
         //${user.dir} 运行在项目同目录下
         @PropertySource(value = "file:${user.dir}/conf/dbconfig.properties", ignoreResourceNotFound = true),
         @PropertySource(value = "file:${user.dir}/conf/dubbo.properties", ignoreResourceNotFound = true),
-        @PropertySource(value = "file:${user.dir}/conf/platform.properties", ignoreResourceNotFound = true)
+        @PropertySource(value = "file:${user.dir}/conf/secure.properties", ignoreResourceNotFound = true)
 })
 @Slf4j
 @EnableAspectJAutoProxy

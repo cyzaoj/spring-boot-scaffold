@@ -5,12 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author ylxia
@@ -19,12 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * @date 15/12/29
  */
 @Slf4j
-public class CaptchaAuthenticationProcessingFilter extends UsernamePasswordAuthenticationFilter {
+public class CaptchaAuthenticationProcessingFilter implements Filter {
 
-
-    public CaptchaAuthenticationProcessingFilter() {
-        super();
-    }
 
     private String captchaParameter = "captcha";
     private boolean state = Boolean.TRUE;
@@ -40,28 +35,37 @@ public class CaptchaAuthenticationProcessingFilter extends UsernamePasswordAuthe
 
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest,
+                         ServletResponse servletResponse,
+                         FilterChain chain) throws IOException, ServletException {
+
+
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         String captcha = this.obtainCaptcha(request);
 
-        //不开启验证码不验证
-        if (!state) {
-            log.warn("Captcha isn't execute !!!", state);
-        } else {
-            if (StringUtils.isBlank(captcha)) {
-                log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
-                throw new BadCredentialsException("Captcha is NULL !");
-            }
-
-            String sessionCaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
-            if (StringUtils.isNotBlank(sessionCaptcha)
-                    && sessionCaptcha.equalsIgnoreCase(captcha)) {
-                log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
-                throw new BadCredentialsException("Captcha is Invalid !");
-            }
+        log.warn("Captcha isn't execute !!!", state);
+        if (state && StringUtils.isBlank(captcha)) {
+            log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
+            throw new BadCredentialsException("Captcha is NULL !");
         }
 
+        String sessionCaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        if (StringUtils.isNotBlank(sessionCaptcha)
+                && sessionCaptcha.equalsIgnoreCase(captcha)) {
+            log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
+            throw new BadCredentialsException("Captcha is Invalid !");
+        }
+        chain.doFilter(request, response);
+    }
 
-        return super.attemptAuthentication(request, response);
+    @Override
+    public void destroy() {
+
     }
 }

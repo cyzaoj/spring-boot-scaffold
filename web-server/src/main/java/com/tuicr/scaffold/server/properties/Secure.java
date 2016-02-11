@@ -13,13 +13,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "secure")
 public class Secure {
-
-
-    /**
-     * 授权登录管理系统的分组
-     */
-    private String adminRole;
-
     /**
      * 登录页面地址
      */
@@ -28,7 +21,7 @@ public class Secure {
     /**
      * 成功跳转地址
      */
-    private String loginSuccessUrl = "/dashboard";
+    private String loginSuccessUrl = "/";
 
     /**
      * 处理登录请求地址
@@ -48,12 +41,18 @@ public class Secure {
 
 
     /**
-     * 鉴权表前缀
+     * 过期
      */
-    private String tablePrefix = "auth_oauth_";
+    private String expireUrl = "/auth/loginPage?param.error=expired";
+
 
     /**
-     * 登录跳转地址
+     * 权限不够
      */
-    private String applicationUrl = "/";
+    private String accessDeniedUrl;
+
+    /**
+     * 认证失败
+     */
+    private String badCredentialsUrl;
 }
