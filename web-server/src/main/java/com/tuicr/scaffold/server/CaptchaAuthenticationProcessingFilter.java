@@ -48,9 +48,11 @@ public class CaptchaAuthenticationProcessingFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String captcha = this.obtainCaptcha(request);
-
-        log.warn("Captcha isn't execute !!!", state);
-        if (state && StringUtils.isBlank(captcha)) {
+        if (!state) {
+            chain.doFilter(request, response);
+            return;
+        }
+        if (StringUtils.isBlank(captcha)) {
             log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
             throw new BadCredentialsException("Captcha is NULL !");
         }
@@ -61,6 +63,7 @@ public class CaptchaAuthenticationProcessingFilter implements Filter {
             log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
             throw new BadCredentialsException("Captcha is Invalid !");
         }
+
         chain.doFilter(request, response);
     }
 
