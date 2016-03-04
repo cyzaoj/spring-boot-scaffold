@@ -127,6 +127,11 @@
             <artifactId>kaptcha</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+
         <!-- 数据库-->
         <dependency>
             <groupId>com.alibaba</groupId>
