@@ -4,9 +4,12 @@ package com.tuicr.scaffold.server;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -51,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @return
      */
+    @Bean
     public UserDetailsService userDetailsService() {
         Properties properties = new Properties();
         properties.put("admin", "admin!#123,enabled,ROLE_ADMIN");
@@ -101,4 +105,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         digestAuthenticationEntryPoint.setRealmName("Contacts Realm via Digest Authentication");
         return digestAuthenticationEntryPoint;
     }
+
+
+
+
+//    @Autowired
+//    public void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+//        daoAuthenticationProvider.setUserDetailsService(userDetailsHandler);
+//        //daoAuthenticationProvider.setSaltSource(user -> user.getUsername());
+//        auth.authenticationProvider(daoAuthenticationProvider);
+//        daoAuthenticationProvider.setPasswordEncoder(new PlaintextPasswordEncoder());
+//    }
+
 }
