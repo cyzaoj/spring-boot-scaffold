@@ -71,7 +71,7 @@ api服务端脚手架
 拦截/api/**请求,通过header验证请求的合法性,(类似JWT)<br>
 
 
-客户端实现秘钥生成可以参考DigestAuthUtils.generateDigest去完成实现<br>
+客户端实现秘钥生成可以参考com.tuicr.scaffold.util.SecUtils.generateDigest去完成实现<br>
 
 注:druid未完全配置完成<br>
 服务端经常涉及到性能问题,可以通过阿里巴巴的druid进行分析,为了演示这里没有对其uri进行拦截,访问地址:/druid/index.html
