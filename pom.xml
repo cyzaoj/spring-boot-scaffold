@@ -54,7 +54,7 @@
 
         <!--数据库 -->
         <mysql.version>5.1.37</mysql.version>
-        <druid.version>1.0.15</druid.version>
+        <druid.version>1.0.17</druid.version>
         <hibernate.validator.version>5.2.4.Final</hibernate.validator.version>
         <hibernate.api.version>1.1.0.Final</hibernate.api.version>
     </properties>
