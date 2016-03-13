@@ -39,6 +39,7 @@
         <jjwt.version>0.6.0</jjwt.version>
         <rxJava.version>1.1.0</rxJava.version>
         <swagger.springmvc.version>1.0.2</swagger.springmvc.version>
+        <guava.version>19.0-rc1</guava.version>
         <!--日志-->
         <slf4j.verision>1.7.7</slf4j.verision>
         <logback.version>1.1.3</logback.version>
@@ -193,6 +194,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
 
             <!-- dubbo -->
