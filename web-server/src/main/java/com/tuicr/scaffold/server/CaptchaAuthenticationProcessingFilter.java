@@ -47,23 +47,21 @@ public class CaptchaAuthenticationProcessingFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        String captcha = this.obtainCaptcha(request);
-        if (!state) {
-            chain.doFilter(request, response);
-            return;
-        }
-        if (StringUtils.isBlank(captcha)) {
-            log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
-            throw new BadCredentialsException("Captcha is NULL !");
-        }
 
-        String sessionCaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        if (StringUtils.isNotBlank(sessionCaptcha)
-                && sessionCaptcha.equalsIgnoreCase(captcha)) {
-            log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
-            throw new BadCredentialsException("Captcha is Invalid !");
-        }
+        if (state) {
+            String captcha = this.obtainCaptcha(request);
+            String sessionCaptcha = (String) request.getSession(false).getAttribute(Constants.KAPTCHA_SESSION_KEY);
+            if (StringUtils.isBlank(captcha)) {
+                log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
+                throw new BadCredentialsException("Captcha is NULL !");
+            }
 
+            if (StringUtils.isNotBlank(sessionCaptcha)
+                    && sessionCaptcha.equalsIgnoreCase(captcha)) {
+                log.error("Captcha is Invalid,params={}", ToStringBuilder.reflectionToString(request.getParameterMap()));
+                throw new BadCredentialsException("Captcha is Invalid !");
+            }
+        }
         chain.doFilter(request, response);
     }
 

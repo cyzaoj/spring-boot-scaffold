@@ -4,11 +4,13 @@ package com.tuicr.scaffold.server;
 import com.tuicr.scaffold.server.properties.Secure;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.vote.AffirmativeBased;
@@ -23,6 +25,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
+import org.springframework.security.rsa.crypto.RsaSecretEncryptor;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -58,6 +62,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // isCustomLoginPage在初始化的时候为false,进入默认formlogin导致configure中设置的相关错误跳转失效
         super(false);
     }
+
+
+
+    @Value("${keystore.password}")
+    private String keyStorePwd;
+
+    @Value("${keystore.alias}")
+    private String keyStoreAlias;
 
     @Autowired
     private Secure secure;
@@ -175,5 +187,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         WebExpressionVoter webExpressionVoter = new WebExpressionVoter();
         webExpressionVoter.setExpressionHandler(webSecurityExpressionHandler());
         return webExpressionVoter;
+    }
+
+
+    /**
+     * RSA加密解密
+     * @return
+     */
+    @Bean
+    public RsaSecretEncryptor rsaSecretEncryptor() {
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
+                new ClassPathResource("tuicr.server.keystore"),
+                keyStorePwd.toCharArray()
+        );
+        RsaSecretEncryptor rsaSecretEncryptor = new RsaSecretEncryptor(
+                keyStoreKeyFactory.getKeyPair(keyStoreAlias)
+        );
+        return rsaSecretEncryptor;
     }
 }
