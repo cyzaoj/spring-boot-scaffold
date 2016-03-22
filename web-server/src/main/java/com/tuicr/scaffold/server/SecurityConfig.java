@@ -164,8 +164,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         decisionVoters.add(new RoleVoter());
         decisionVoters.add(new AuthenticatedVoter());
         decisionVoters.add(webExpressionVoter());// 启用表达式投票器
-        AffirmativeBased accessDecisionManager = new AffirmativeBased(decisionVoters);
-        return accessDecisionManager;
+        return  new AffirmativeBased(decisionVoters);
     }
 
     /*
@@ -174,8 +173,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean(name = "expressionHandler")
     public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler() {
         log.info("DefaultWebSecurityExpressionHandler");
-        DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
-        return webSecurityExpressionHandler;
+        return new DefaultWebSecurityExpressionHandler();
     }
 
     /*
@@ -200,9 +198,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 new ClassPathResource("tuicr.server.keystore"),
                 keyStorePwd.toCharArray()
         );
-        RsaSecretEncryptor rsaSecretEncryptor = new RsaSecretEncryptor(
+        return new RsaSecretEncryptor(
                 keyStoreKeyFactory.getKeyPair(keyStoreAlias)
         );
-        return rsaSecretEncryptor;
     }
 }

@@ -1,0 +1,1 @@
+keytool -genkey -alias tuicr -keypass tuicr_123 -keyalg RSA -keysize 1024 -validity 365 -keystore tuicr.server.keystore -storepass tuicr_123 -dname "CN=(名字与姓氏), OU=(组织单位名称), O=(组织名称), L=(城市或区域名称), ST=(州或省份名称), C=(单位的两字母国家代码)";

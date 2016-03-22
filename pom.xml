@@ -77,6 +77,7 @@
                 <version>1.0.0</version>
             </dependency>
 
+
             <!--<dependency>
                 <groupId>me.chanjar</groupId>
                 <artifactId>weixin-java-mp</artifactId>
@@ -114,6 +115,12 @@
                 <artifactId>spring-social-weibo</artifactId>
                 <version>1.0.1-beta1</version>
             </dependency>-->
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-rsa</artifactId>
+                <version>1.0.2.RELEASE</version>
+            </dependency>
 
             <!--第三方账户-->
             <dependency>
