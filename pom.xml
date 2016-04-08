@@ -25,7 +25,7 @@
         <!--常用依赖-->
         <commons.lang.version>2.6</commons.lang.version>
         <commons.lang3.version>3.4</commons.lang3.version>
-        <commons.codec.version>1.9</commons.codec.version>
+        <commons.codec.version>1.10</commons.codec.version>
         <commons.io.version>2.4</commons.io.version>
         <httpcore.version>4.4.4</httpcore.version>
         <httpclient.version>4.5.1</httpclient.version>
@@ -33,11 +33,11 @@
         <httpclient.cache.version>4.5.1</httpclient.cache.version>
         <dom4j.version>1.6.1</dom4j.version>
         <kaptcha.version>2.3.2</kaptcha.version>
-        <lombok.version>1.16.4</lombok.version>
-        <fastjson.version>1.2.5</fastjson.version>
+        <lombok.version>1.16.8</lombok.version>
+        <fastjson.version>1.2.8</fastjson.version>
         <freemarker.version>2.3.23</freemarker.version>
         <jjwt.version>0.6.0</jjwt.version>
-        <rxJava.version>1.1.0</rxJava.version>
+        <rxJava.version>1.1.2</rxJava.version>
         <swagger.springmvc.version>1.0.2</swagger.springmvc.version>
         <guava.version>19.0-rc1</guava.version>
         <!--日志-->
@@ -49,7 +49,7 @@
         <zkclient.version>0.6</zkclient.version>
 
         <!-- 数据抓取-->
-        <us.codecraft.version>0.5.2</us.codecraft.version>
+        <us.codecraft.version>0.5.3</us.codecraft.version>
 
         <!--数据库 -->
         <mysql.version>5.1.37</mysql.version>
